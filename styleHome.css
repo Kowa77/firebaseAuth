@@ -1,0 +1,46 @@
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+.navbar {
+    background-color: #333;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar-brand {
+    font-size: 1.2em;
+}
+.navbar-auth {
+    display: flex;
+    align-items: center;
+}
+.navbar-auth a, .navbar-auth button {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    font-size: 1em;
+}
+.navbar-auth button:hover, .navbar-auth a:hover {
+    text-decoration: underline;
+}
+.container {
+    padding: 20px;
+}
+.container h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+.container p {
+    font-size: 1.2em;
+    line-height: 1.5;
+}
+

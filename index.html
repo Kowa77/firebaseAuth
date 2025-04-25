@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Autenticación con Firebase</title>
+   
+</head>
+<body>
+    <div class="container">
+        <h2>Registro</h2>
+        <form id="registro-form">
+            <div class="form-group">
+                <label for="registro-email">Correo electrónico:</label>
+                <input type="email" id="registro-email" required>
+            </div>
+            <div class="form-group">
+                <label for="registro-password">Contraseña:</label>
+                <input type="password" id="registro-password" required>
+            </div>
+            <button type="submit">Registrarse</button>
+            <p id="registro-error" style="color: red; margin-top: 10px;"></p>
+        </form>
+
+        <hr style="margin: 20px 0;">
+
+        <h2>Iniciar Sesión</h2>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="login-email">Correo electrónico:</label>
+                <input type="email" id="login-email" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Contraseña:</label>
+                <input type="password" id="login-password" required>
+            </div>
+            <button type="submit">Iniciar Sesión</button>
+            <p id="login-error" style="color: red; margin-top: 10px;"></p>
+        </form>
+
+        <div id="mensaje"></div>
+
+        <div id="app-content" class="oculto">
+            <h2>Bienvenido</h2>
+            <p id="user-info"></p>
+            <button id="logout-button">Cerrar Sesión</button>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth-compat.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
