@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/flaticon.css">
+    <title>Cumpleaños</title>
+    <style>
+        /* Estilos para los controles del carrusel (flechas) */
+        .carousel-controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .carousel-controls button {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            margin: 0 15px;
+            cursor: pointer;
+            color: #584c30;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .carousel-controls button:hover {
+            color: #e8be95;
+        }
+
+        /* Estilos específicos para el carrusel */
+        .carousel-container {
+            margin-top: 10%;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory; /* Para un desplazamiento suave entre elementos */
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            min-width: 300px;
+            max-width: 300px;
+            height: 450px;
+            margin-right: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            color: #fdfdfd;
+            position: relative;
+            scroll-snap-align: center; /* Centrar el elemento enfocado */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            cursor: pointer; /* Indicar que las tarjetas son clickeables */
+        }
+
+        .carousel-item:last-child {
+            margin-right: 0;
+        }
+
+        .carousel-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .carousel-item:hover::before {
+            opacity: 1;
+        }
+
+        .carousel-caption {
+            padding: 15px;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(100%);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .carousel-item:hover .carousel-caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .carousel-caption p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        .carousel-item.focused {
+            transform: scale(1.1); /* Agrandar la tarjeta */
+            box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.5); /* Resaltar la sombra */
+            z-index: 1; /* Asegurar que la tarjeta agrandada esté por encima de las demás */
+        }
+
+        .carousel-container.dragging {
+            cursor: grabbing;
+            user-select: none;
+        }
+    </style>
+</head>
+<body style="background-image: url('../img/4.png'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+    <nav class="navbar">
+        <div class="navbar-brand-container">
+            <a class="navbar-brand" href="../index.html">
+                <img src="../img/logo_blanco.png" class="logo" alt="Logo de Mi Aplicación">
+            </a>
+        </div>
+        <button class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="navbar-links">
+            <a href="../index.html#about">Nosotros</a>
+            <a href="../index.html#galeria">Galeria</a>
+            <a href="../index.html#extras">Extras</a>
+            <a href="../servicios.html" id="servicios">Servicios</a>
+            <a href="../index.html#contact">Contacto</a>
+            <a class="nav-link carrito-nav-link" id="carrito-nav" href="../paginas/carrito.html">
+                <img src="../assets/img/025-cart.png"  alt="Carrito" class="carrito-icono-navbar">
+                <span id="carrito-cantidad-navbar">0</span>
+            </a>
+        </div>
+        <div class="navbar-auth" id="navbar-auth">
+            <button  data-bs-toggle="modal" data-bs-target="#authModal">Login</button>
+        </div>
+    </nav>
+
+    <div class="carousel-container" id="carouselContainer">
+        <div class="carousel-wrapper" id="carouselWrapper">
+            <div class="carousel-item" style="background-image: url('../img/cumple1.jpg');" data-index="0">
+                <div class="carousel-caption">
+                    <p>Decoración temática para fiestas de cumpleaños.</p>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('../img/cumple2.jpg');" data-index="1">
+                <div class="carousel-caption">
+                    <p>Variedad de mesas dulces y tortas personalizadas.</p>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('../img/cumple3.jpg');" data-index="2">
+                <div class="carousel-caption">
+                    <p>Animación y entretenimiento para todas las edades.</p>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('../img/cumple4.jpg');" data-index="3">
+                <div class="carousel-caption">
+                    <p>Globos y arreglos especiales para tu celebración.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="carousel-controls">
+        <button onclick="prevSlide()">&#10094;</button>
+        <button onclick="nextSlide()">&#10095;</button>
+    </div>
+
+    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="authModalLabel">Iniciar Sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <section id="login-form">
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label for="loginEmail" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="loginEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginPassword" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="loginPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+                            <div id="login-error" class="text-danger mt-2"></div> <div class="mt-3 text-center">
+                                ¿No tienes una cuenta? <a href="#" id="show-register-form">Regístrate</a>
+                            </div>
+                        </form>
+                    </section>
+
+                    <section id="register-section" style="display: none;">
+                        <form id="registerForm">
+                            <div class="mb-3">
+                                <label for="registerEmail" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="registerEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="registerPassword" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="registerPassword" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+                                <input type="password" class="form-control" id="confirmPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">Registrarse</button>
+                            <div id="registro-error" class="text-danger mt-2"></div> <div class="mt-3 text-center">
+                                ¿Ya tienes una cuenta? <a href="#" id="show-login-form">Inicia Sesión</a>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth-compat.js"></script>
+    <script src="../script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous">
+    </script>
+
+    <script>
+        const carouselContainer = document.getElementById('carouselContainer');
+        const carouselWrapper = document.getElementById('carouselWrapper');
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        let itemWidth;
+        let currentIndex = 0;
+        let isDragging = false;
+        let startX;
+        let scrollLeft;
+
+        function initializeCarousel() {
+            const firstItem = carouselItems[0];
+            if (firstItem) {
+                itemWidth = firstItem.offsetWidth + 30;
+                carouselWrapper.style.width = `${itemWidth * carouselItems.length}px`;
+                centerCarousel(currentIndex);
+                focusCard(currentIndex);
+                addEventListenersToCards();
+            }
+        }
+
+        function centerCarousel(index) {
+            if (carouselWrapper && carouselContainer && itemWidth !== undefined) {
+                carouselContainer.scrollLeft = (itemWidth * index) - (carouselContainer.offsetWidth - itemWidth) / 2;
+            }
+        }
+
+        function focusCard(index) {
+            carouselItems.forEach(item => item.classList.remove('focused'));
+            if (carouselItems[index]) {
+                carouselItems[index].classList.add('focused');
+            }
+        }
+
+        function nextSlide() {
+            if (itemWidth !== undefined && currentIndex < carouselItems.length - 1) {
+                currentIndex++;
+                centerCarousel(currentIndex);
+                focusCard(currentIndex);
+            }
+        }
+
+        function prevSlide() {
+            if (itemWidth !== undefined && currentIndex > 0) {
+                currentIndex--;
+                centerCarousel(currentIndex);
+                focusCard(currentIndex);
+            }
+        }
+
+        function handleCardClick(event) {
+            const clickedIndex = parseInt(event.currentTarget.dataset.index);
+            if (!isNaN(clickedIndex)) {
+                currentIndex = clickedIndex;
+                centerCarousel(currentIndex);
+                focusCard(currentIndex);
+            }
+        }
+
+        function addEventListenersToCards() {
+            carouselItems.forEach(item => {
+                item.addEventListener('click', handleCardClick);
+            });
+        }
+
+        carouselContainer.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX - carouselContainer.offsetLeft;
+            scrollLeft = carouselContainer.scrollLeft;
+            carouselContainer.style.cursor = 'grabbing';
+        });
+
+        carouselContainer.addEventListener('mouseup', () => {
+            isDragging = false;
+            carouselContainer.style.cursor = 'grab';
+        });
+
+        carouselContainer.addEventListener('mouseleave', () => {
+            isDragging = false;
+            carouselContainer.style.cursor = 'grab';
+        });
+
+        carouselContainer.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - carouselContainer.offsetLeft;
+            const walk = (x - startX) * 1;
+            carouselContainer.scrollLeft = scrollLeft - walk;
+        });
+
+        window.onload = initializeCarousel;
+    </script>
+</body>
+</html>
